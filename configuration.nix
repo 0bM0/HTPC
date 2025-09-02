@@ -45,16 +45,17 @@
   services.xserver.displayManager.lightdm.greeter.enable = false;
 
   services.xserver.desktopManager.kodi.enable = true;
-  services.xserver.desktopManager.kodi.plugins = with pkgs.kodiPlugins; [
-    youtube
-    jellyfin
-    netflix
-    orftvthek
-    sponsorblock
-    steam-launcher
-    bluetooth-manager
-    libretro
-  ];
+  services.xserver.desktopManager.kodi.package = (pkgs.kodi.withPackages (kodiPkgs: with kodiPkgs; [
+  youtube
+  jellyfin
+  netflix
+  orftvthek
+  sponsorblock
+  steam-launcher
+  bluetooth-manager
+  libretro
+  ]));
+
   users.extraUsers.kodi = {
     isNormalUser = true;
     password = "kodi";
@@ -74,11 +75,10 @@
   hardware.xone.enable = true;
 
   environment.systemPackages = with pkgs; [
-      libcec
-      git
-      helix
-      kodi
-    ];
+    git
+    helix
+    libcec
+  ];
 
     programs.steam = {
       enable = true;
