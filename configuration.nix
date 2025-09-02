@@ -42,23 +42,12 @@
   services.xserver.enable = true;
   services.displayManager.autoLogin.user = "kodi";
   services.xserver.displayManager.lightdm.greeter.enable = false;
-  services.xserver.desktopManager.kodi = {
-    enable = true;
-    addons = with pkgs.kodiPackages; [
-      youtube
-      jellyfin
-      netflix
-      orftvthek
-      joystick
-      sponsorblock
-      steam-launcher
-      bluetooth-manager
-      libretro
-    ];
-  };
 
-  # Define a user account
+  services.xserver.desktopManager.kodi.enable = true;
+
   users.extraUsers.kodi.isNormalUser = true;
+
+  nixpkgs.config.allowUnfree = true;
 
   services.pulseaudio.enable = false;
   security.rtkit.enable = true;
@@ -69,22 +58,29 @@
     pulse.enable = true;
   };
 
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
-    dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
-    localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
-  };
-
   hardware.xone.enable = true;
 
-  nixpkgs.config.allowUnfree = true;
-
   environment.systemPackages = with pkgs; [
-    libcec
-    git
-    helix
-  ];
+      libcec
+      git
+      helix
+      kodi
+      kodiPlugins.youtube
+      kodiPlugins.jellyfin
+      kodiPlugins.netflix
+      kodiPlugins.orftvthek
+      kodiPlugins.sponsorblock
+      kodiPlugins.steam-launcher
+      kodiPlugins.bluetooth-manager
+      kodiPlugins.libretro
+    ];
+
+    programs.steam = {
+      enable = true;
+      remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
+      dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
+      localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
+    };
 
   system.stateVersion = "25.05";
 }
