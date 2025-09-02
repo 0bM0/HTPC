@@ -6,8 +6,9 @@
   ];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.systemd-boot.enable = false;
+  boot.loader.grub.enable = true;
+  boot.loader.grub.device = "/dev/vda";
   boot.loader.systemd-boot.configurationLimit = 5;
 
   networking.hostName = "HTPC";
@@ -44,7 +45,16 @@
   services.xserver.displayManager.lightdm.greeter.enable = false;
 
   services.xserver.desktopManager.kodi.enable = true;
-
+  services.xserver.desktopManager.kodi.plugins = with pkgs.kodiPlugins; [
+    youtube
+    jellyfin
+    netflix
+    orftvthek
+    sponsorblock
+    steam-launcher
+    bluetooth-manager
+    libretro
+  ];
   users.extraUsers.kodi.isNormalUser = true;
 
   nixpkgs.config.allowUnfree = true;
@@ -65,14 +75,6 @@
       git
       helix
       kodi
-      kodiPlugins.youtube
-      kodiPlugins.jellyfin
-      kodiPlugins.netflix
-      kodiPlugins.orftvthek
-      kodiPlugins.sponsorblock
-      kodiPlugins.steam-launcher
-      kodiPlugins.bluetooth-manager
-      kodiPlugins.libretro
     ];
 
     programs.steam = {
