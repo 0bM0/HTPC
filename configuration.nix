@@ -55,7 +55,10 @@
     bluetooth-manager
     libretro
   ];
-  users.extraUsers.kodi.isNormalUser = true;
+  users.extraUsers.kodi = {
+    isNormalUser = true;
+    password = "kodi";
+  };
 
   nixpkgs.config.allowUnfree = true;
 
