@@ -9,7 +9,6 @@
   boot.loader.systemd-boot.enable = false;
   boot.loader.grub.enable = true;
   boot.loader.grub.device = "/dev/vda";
-  boot.loader.systemd-boot.configurationLimit = 5;
 
   networking.hostName = "HTPC";
   networking.networkmanager.enable = true;
