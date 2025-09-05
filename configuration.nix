@@ -44,7 +44,14 @@
   services.displayManager.autoLogin.user = "kodi";
   services.xserver.displayManager.lightdm.greeter.enable = false;
 
-  services.xserver.desktopManager.kodi.enable = true;
+  services.xserver.desktopManager.openbox.enable = true;
+
+  systemd.tmpfiles.rules = [
+    "d /home/kodi/.config 0755 kodi kodi -"
+    "d /home/kodi/.config/openbox 0755 kodi kodi -"
+    "C /home/kodi/.config/openbox/autostart 0755 kodi kodi - - #!/bin/sh\nkodi &\n"
+   ];
+
   services.xserver.desktopManager.kodi.package = (pkgs.kodi.withPackages (kodiPkgs: with kodiPkgs; [
   youtube
   jellyfin
