@@ -94,5 +94,12 @@
       localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
     };
 
+    system.autoUpgrade = {
+      enable = true;
+      allowReboot = true; # system will reboot if needed after upgrade
+      channel = "https://channels.nixos.org/nixos-25.05"; # matches your stateVersion
+      dates = "daily"; # runs once per day
+    };
+
   system.stateVersion = "25.05";
 }
